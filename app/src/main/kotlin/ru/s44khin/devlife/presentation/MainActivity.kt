@@ -4,10 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.fragment.app.FragmentTransaction
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.databinding.ActivityMainBinding
 import ru.s44khin.devlife.presentation.card.FragmentLatest
 import ru.s44khin.devlife.presentation.card.FragmentTop
+import ru.s44khin.devlife.presentation.favorites.FavoritesFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +33,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(binding.root)
+
+        when (intent.action) {
+            "ru.s44khin.devlife.latest" -> sharedPreferences.edit().putString(LAST_USED_FRAGMENT, FragmentLatest.TAG).apply()
+            "ru.s44khin.devlife.top" -> sharedPreferences.edit().putString(LAST_USED_FRAGMENT, FragmentTop.TAG).apply()
+            "ru.s44khin.devlife.favorites" -> {
+                supportFragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack(FavoritesFragment.TAG)
+                    .add(android.R.id.content, FavoritesFragment.newInstance())
+                    .commit()
+            }
+        }
+
         initNavigation()
     }
 

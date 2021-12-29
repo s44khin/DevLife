@@ -3,6 +3,7 @@ package ru.s44khin.devlife.presentation.post
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -82,13 +83,12 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     private fun initButtons() = binding.apply {
         postIcShare.setOnClickListener {
             val text = "https://developerslife.ru/${post.id}"
-            val clipboardManager = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            clipboardManager.setPrimaryClip(ClipData.newPlainText("url", text))
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.link_copied),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, text)
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(sendIntent, null))
         }
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="shortcut_latest"
+        android:enabled="true"
+        android:icon="@mipmap/shortcut_latest"
+        android:shortcutShortLabel="@string/latest">
+        <intent
+            android:action="ru.s44khin.devlife.latest"
+            android:targetPackage="ru.s44khin.devlife"
+            android:targetClass="ru.s44khin.devlife.presentation.MainActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="shortcut_top"
+        android:enabled="true"
+        android:icon="@mipmap/shortcut_top"
+        android:shortcutShortLabel="@string/top">
+        <intent
+            android:action="ru.s44khin.devlife.top"
+            android:targetPackage="ru.s44khin.devlife"
+            android:targetClass="ru.s44khin.devlife.presentation.MainActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="shortcut_favorites"
+        android:enabled="true"
+        android:icon="@mipmap/shortcut_favorites"
+        android:shortcutShortLabel="@string/favorites">
+        <intent
+            android:action="ru.s44khin.devlife.favorites"
+            android:targetPackage="ru.s44khin.devlife"
+            android:targetClass="ru.s44khin.devlife.presentation.MainActivity" />
+    </shortcut>
+</shortcuts>

@@ -18,11 +18,14 @@
         <entry key="..\:/Users/s44kh/AndroidStudioProjects/DevLife2/app/src/main/res/layout/item_post.xml" value="0.22" />
         <entry key="..\:/Users/s44kh/AndroidStudioProjects/DevLife2/app/src/main/res/menu/main_menu.xml" value="0.3875" />
         <entry key="..\:/Users/s44kh/AndroidStudioProjects/DevLife2/app/src/main/res/menu/menu_top.xml" value="0.5" />
+        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/drawable/ic_top.xml" value="0.3974358974358974" />
+        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/drawable/ic_top_foreground.xml" value="0.3974358974358974" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/drawable/outline_share_24.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/activity_main.xml" value="0.3875" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/fragment_card.xml" value="0.3875" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/fragment_favorites.xml" value="0.33" />
-        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/fragment_post.xml" value="0.67" />
+        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/fragment_post.xml" value="0.25" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/item_comment.xml" value="0.3875" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/item_favorite.xml" value="0.3875" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/layout/item_post.xml" value="0.21927083333333333" />
@@ -30,6 +33,9 @@
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/menu/main_menu.xml" value="0.3875" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/menu/menu_main.xml" value="0.38153846153846155" />
         <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/menu/menu_top.xml" value="0.3875" />
+        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/s44kh/Documents/DevLife/app/src/main/res/xml/shortcuts.xml" value="0.3875" />
       </map>
     </option>
   </component>
