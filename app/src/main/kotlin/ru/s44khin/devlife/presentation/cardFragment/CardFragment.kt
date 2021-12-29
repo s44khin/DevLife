@@ -16,7 +16,6 @@ import ru.s44khin.devlife.presentation.cardFragment.elm.*
 import ru.s44khin.devlife.presentation.postFragment.PostFragment
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
-import vivid.money.elmslie.core.store.Store
 
 class FragmentLatest : CardFragment() {
 

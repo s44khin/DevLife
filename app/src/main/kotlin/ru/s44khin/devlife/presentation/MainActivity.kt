@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.databinding.ActivityMainBinding
-import ru.s44khin.devlife.presentation.cardFragment.CardFragment
 import ru.s44khin.devlife.presentation.cardFragment.FragmentLatest
 import ru.s44khin.devlife.presentation.cardFragment.FragmentTop
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val LAST_USED_FRAGMENT = "LAST_USED_FRAGMENT"

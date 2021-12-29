@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import ru.s44khin.devlife.App
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentPostBinding
 import ru.s44khin.devlife.presentation.elmDialogFragment.ElmDialogFragment
+import ru.s44khin.devlife.presentation.postFragment.adapter.CommentsAdapter
 import ru.s44khin.devlife.presentation.postFragment.elm.*
 import vivid.money.elmslie.core.ElmStoreCompat
 
@@ -51,7 +53,10 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     }
 
     override fun render(state: State) {
-
+        if (state.comments.isNotEmpty()) {
+            binding.postRecyclerView.adapter = CommentsAdapter(state.comments)
+            binding.postShimmer.visibility = View.GONE
+        }
     }
 
     private fun initPost() {
@@ -63,6 +68,8 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
         binding.postDescription.text = post.description
         binding.postAuthor.text = post.author
         binding.postDate.text = post.date.dropLast(6)
-        binding.postLikesCount.text = post.votes.toString()
+        binding.postLikeCount.text = post.votes.toString()
+        binding.postRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 }

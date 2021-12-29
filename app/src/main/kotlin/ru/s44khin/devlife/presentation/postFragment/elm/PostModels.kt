@@ -9,7 +9,7 @@ data class State(
 
 sealed class Event {
 
-    sealed class Ui: Event() {
+    sealed class Ui : Event() {
         data class LoadComments(val postId: Int) : Ui()
     }
 
@@ -22,7 +22,7 @@ sealed class Event {
 }
 
 sealed class Effect {
-    object ErrorLoading: Effect()
+    object ErrorLoading : Effect()
 }
 
 sealed class Command {
