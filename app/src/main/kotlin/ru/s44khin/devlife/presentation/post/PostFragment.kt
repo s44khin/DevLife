@@ -1,17 +1,22 @@
 package ru.s44khin.devlife.presentation.post
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import ru.s44khin.devlife.App
+import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentPostBinding
-import ru.s44khin.devlife.utils.elmDialogFragment.ElmDialogFragment
 import ru.s44khin.devlife.presentation.post.adapter.CommentsAdapter
 import ru.s44khin.devlife.presentation.post.elm.*
+import ru.s44khin.devlife.utils.elmDialogFragment.ElmDialogFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 
 class PostFragment : ElmDialogFragment<Event, Effect, State>() {
@@ -50,6 +55,7 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPost()
+        initButtons()
     }
 
     override fun render(state: State) {
@@ -71,5 +77,18 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
         binding.postLikeCount.text = post.votes.toString()
         binding.postRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun initButtons() = binding.apply {
+        postIcShare.setOnClickListener {
+            val text = "https://developerslife.ru/${post.id}"
+            val clipboardManager = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("url", text))
+            Snackbar.make(
+                binding.root,
+                requireContext().getString(R.string.link_copied),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
     }
 }
