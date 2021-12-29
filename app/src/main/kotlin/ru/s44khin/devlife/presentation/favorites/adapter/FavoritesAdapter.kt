@@ -8,10 +8,12 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
+import ru.s44khin.devlife.presentation.card.adapter.ItemHandler
 import ru.s44khin.devlife.presentation.card.adapter.PostDelegate
 
 class FavoritesAdapter(
-    val posts: List<Post>
+    private val posts: List<Post>,
+    private val itemHandler: ItemHandler
 ) : RecyclerView.Adapter<PostDelegate.PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PostDelegate.PostViewHolder(
@@ -38,6 +40,10 @@ class FavoritesAdapter(
             .load(post.gifURL)
             .placeholder(loader)
             .into(holder.gif)
+
+        holder.itemView.setOnClickListener {
+            itemHandler.itemOnClick(post)
+        }
     }
 
     override fun getItemCount() = posts.size

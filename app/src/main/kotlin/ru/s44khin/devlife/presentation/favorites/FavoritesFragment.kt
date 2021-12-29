@@ -8,13 +8,16 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.s44khin.devlife.App
+import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentFavoritesBinding
+import ru.s44khin.devlife.presentation.card.adapter.ItemHandler
 import ru.s44khin.devlife.presentation.favorites.adapter.FavoritesAdapter
 import ru.s44khin.devlife.presentation.favorites.elm.*
+import ru.s44khin.devlife.presentation.post.PostFragment
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 
-class FavoritesFragment : ElmFragment<Event, Effect, State>() {
+class FavoritesFragment : ElmFragment<Event, Effect, State>(), ItemHandler {
 
     companion object {
         const val TAG = "FAVORITES_FRAGMENT"
@@ -51,7 +54,7 @@ class FavoritesFragment : ElmFragment<Event, Effect, State>() {
         binding.shimmer.isVisible = state.isLoading
 
         if (state.posts != null && state.posts.isNotEmpty()) {
-            binding.favoritesRecyclerView.adapter = FavoritesAdapter(state.posts)
+            binding.favoritesRecyclerView.adapter = FavoritesAdapter(state.posts, this)
         }
 
         if (state.posts != null && state.posts.isEmpty()) {
@@ -67,5 +70,9 @@ class FavoritesFragment : ElmFragment<Event, Effect, State>() {
                 binding.titleBar.isLifted = recyclerView.canScrollVertically(-1)
             }
         })
+    }
+
+    override fun itemOnClick(post: Post) {
+        PostFragment.newInstance(post).show(parentFragmentManager, PostFragment.TAG)
     }
 }

@@ -10,6 +10,7 @@ import ru.s44khin.devlife.App
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentCardBinding
+import ru.s44khin.devlife.presentation.card.adapter.ItemHandler
 import ru.s44khin.devlife.presentation.card.adapter.PaginationAdapterHelper
 import ru.s44khin.devlife.presentation.card.adapter.PostAdapter
 import ru.s44khin.devlife.presentation.card.elm.*

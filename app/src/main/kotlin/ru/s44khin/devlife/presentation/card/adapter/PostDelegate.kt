@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
-import ru.s44khin.devlife.presentation.card.ItemHandler
 
 class PostDelegate(
     private val itemHandler: ItemHandler
