@@ -1,4 +1,4 @@
-package ru.s44khin.devlife.presentation.postFragment.elm
+package ru.s44khin.devlife.presentation.post.elm
 
 import vivid.money.elmslie.core.store.dsl_reducer.DslReducer
 

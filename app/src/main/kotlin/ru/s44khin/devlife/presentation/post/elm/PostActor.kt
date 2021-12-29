@@ -1,4 +1,4 @@
-package ru.s44khin.devlife.presentation.postFragment.elm
+package ru.s44khin.devlife.presentation.post.elm
 
 import io.reactivex.Observable
 import ru.s44khin.devlife.data.network.DevLifeRepository

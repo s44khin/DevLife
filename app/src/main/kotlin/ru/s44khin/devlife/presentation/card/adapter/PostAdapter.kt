@@ -1,10 +1,10 @@
-package ru.s44khin.devlife.presentation.cardFragment.adapter
+package ru.s44khin.devlife.presentation.card.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import ru.s44khin.devlife.data.model.Post
-import ru.s44khin.devlife.presentation.cardFragment.ItemHandler
+import ru.s44khin.devlife.presentation.card.ItemHandler
 
 val diffUtilCallback = object : DiffUtil.ItemCallback<Post>() {
 

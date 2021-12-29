@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.databinding.ActivityMainBinding
-import ru.s44khin.devlife.presentation.cardFragment.FragmentLatest
-import ru.s44khin.devlife.presentation.cardFragment.FragmentTop
+import ru.s44khin.devlife.presentation.card.FragmentLatest
+import ru.s44khin.devlife.presentation.card.FragmentTop
 
 class MainActivity : AppCompatActivity() {
 

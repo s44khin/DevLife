@@ -1,11 +1,13 @@
-package ru.s44khin.devlife.presentation.cardFragment.elm
+package ru.s44khin.devlife.presentation.card.elm
 
 import io.reactivex.Observable
+import ru.s44khin.devlife.data.database.DevLifeDatabase
 import ru.s44khin.devlife.data.network.DevLifeRepository
 import vivid.money.elmslie.core.ActorCompat
 
 class CardActor(
     private val repository: DevLifeRepository,
+    private val database: DevLifeDatabase,
     private val type: Type
 ) : ActorCompat<Command, Event> {
 
@@ -25,5 +27,13 @@ class CardActor(
                     { error -> Event.Internal.ErrorLoadingNetwork(error) }
                 )
         }
+
+        is Command.SaveToDatabase -> Observable.fromCallable {
+            database.postDao().insert(command.post)
+        }
+            .mapEvents(
+                { Event.Internal.PostSaved },
+                { error -> Event.Internal.ErrorSavePost(error) }
+            )
     }
 }

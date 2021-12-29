@@ -1,8 +1,9 @@
-package ru.s44khin.devlife.presentation.cardFragment.adapter
+package ru.s44khin.devlife.presentation.card.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -11,26 +12,29 @@ import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
-import ru.s44khin.devlife.presentation.cardFragment.ItemHandler
+import ru.s44khin.devlife.presentation.card.ItemHandler
 
 class PostDelegate(
     private val itemHandler: ItemHandler
-) : AbsListItemAdapterDelegate<Post, Post, PostDelegate.ViewHolder>() {
+) : AbsListItemAdapterDelegate<Post, Post, PostDelegate.PostViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val gif: ImageView = itemView.findViewById(R.id.gif)
         val description: TextView = itemView.findViewById(R.id.description)
+        val topOverlay: FrameLayout = itemView.findViewById(R.id.top_overlay)
+        val leftOverlay: FrameLayout = itemView.findViewById(R.id.left_overlay)
+        val rightOverlay: FrameLayout = itemView.findViewById(R.id.right_overlay)
     }
 
     override fun isForViewType(item: Post, items: MutableList<Post>, position: Int) = true
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup): PostViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
-        return ViewHolder(itemView)
+        return PostViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(item: Post, holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(item: Post, holder: PostViewHolder, payloads: MutableList<Any>) {
         val context = holder.itemView.context
 
         holder.description.text = item.description

@@ -1,21 +1,23 @@
-package ru.s44khin.devlife.presentation.cardFragment
+package ru.s44khin.devlife.presentation.card
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import com.yuyakaido.android.cardstackview.*
 import ru.s44khin.devlife.App
+import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentCardBinding
-import ru.s44khin.devlife.presentation.cardFragment.adapter.PaginationAdapterHelper
-import ru.s44khin.devlife.presentation.cardFragment.adapter.PostAdapter
-import ru.s44khin.devlife.presentation.cardFragment.elm.*
-import ru.s44khin.devlife.presentation.postFragment.PostFragment
+import ru.s44khin.devlife.presentation.card.adapter.PaginationAdapterHelper
+import ru.s44khin.devlife.presentation.card.adapter.PostAdapter
+import ru.s44khin.devlife.presentation.card.elm.*
+import ru.s44khin.devlife.presentation.favorites.FavoritesFragment
+import ru.s44khin.devlife.presentation.post.PostFragment
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
+import java.util.*
 
 class FragmentLatest : CardFragment() {
 
@@ -57,7 +59,7 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     override fun createStore() = ElmStoreCompat(
         initialState = State(),
         reducer = CardReducer(),
-        actor = CardActor(App.instance.repository, type)
+        actor = CardActor(App.instance.repository, App.instance.database, type)
     )
 
     override fun onCreateView(
@@ -71,6 +73,7 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initToolbar()
         initCardStackView()
         initButtons()
     }
@@ -86,7 +89,8 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     }
 
     override fun onCardSwiped(direction: Direction?) {
-
+        if (direction == Direction.Top)
+            store.accept(Event.Ui.SaveToDatabase(adapter.items[manager.topPosition - 1]))
     }
 
     override fun onCardRewound() {
@@ -117,7 +121,6 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
         }
 
         layoutManager = manager
-
         adapter = this@CardFragment.adapter
     }
 
@@ -149,6 +152,20 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
                 .build()
             manager.setRewindAnimationSetting(setting)
             binding.recyclerView.rewind()
+        }
+    }
+
+    private fun initToolbar() = binding.titleBarMenu.setOnMenuItemClickListener { item ->
+        when (item.itemId) {
+            R.id.menu_favorites -> {
+                parentFragmentManager.beginTransaction()
+                    .setTransition(TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack(FavoritesFragment.TAG)
+                    .add(android.R.id.content, FavoritesFragment.newInstance())
+                    .commit()
+                true
+            }
+            else -> false
         }
     }
 

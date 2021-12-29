@@ -1,4 +1,4 @@
-package ru.s44khin.devlife.presentation.postFragment.adapter
+package ru.s44khin.devlife.presentation.post.adapter
 
 import android.view.LayoutInflater
 import android.view.View

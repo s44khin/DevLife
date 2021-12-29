@@ -1,4 +1,4 @@
-package ru.s44khin.devlife.presentation.cardFragment.adapter
+package ru.s44khin.devlife.presentation.card.adapter
 
 class PaginationAdapterHelper(
     private val onLoadMoreCallback: (offset: Int) -> Unit

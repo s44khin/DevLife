@@ -1,4 +1,4 @@
-package ru.s44khin.devlife.presentation.elmDialogFragment
+package ru.s44khin.devlife.utils.elmDialogFragment
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vivid.money.elmslie.android.screen.ElmDelegate
