@@ -3,24 +3,32 @@ package ru.s44khin.devlife.presentation.favorites.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
-import ru.s44khin.devlife.presentation.card.adapter.ItemHandler
 import ru.s44khin.devlife.presentation.card.adapter.PostDelegate
 
 class FavoritesAdapter(
-    private val posts: List<Post>,
+    var posts: List<Post> = emptyList(),
     private val itemHandler: ItemHandler
-) : RecyclerView.Adapter<PostDelegate.PostViewHolder>() {
+) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PostDelegate.PostViewHolder(
+    class FavoritesViewHolder(
+        itemView: View
+    ) : PostDelegate.PostViewHolder(itemView) {
+        val topOverlay: FrameLayout = itemView.findViewById(R.id.top_overlay)
+        val leftOverlay: FrameLayout = itemView.findViewById(R.id.left_overlay)
+        val rightOverlay: FrameLayout = itemView.findViewById(R.id.right_overlay)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FavoritesViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_favorite, parent, false)
     )
 
-    override fun onBindViewHolder(holder: PostDelegate.PostViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val post = posts[position]
         val context = holder.itemView.context
 
@@ -44,6 +52,21 @@ class FavoritesAdapter(
         holder.itemView.setOnClickListener {
             itemHandler.itemOnClick(post)
         }
+
+        holder.itemView.setOnCreateContextMenuListener { contextMenu, view, _ ->
+            if (contextMenu != null && view != null) {
+                contextMenu.add(0, view.id, 0, context.getString(R.string.delete))
+                    .setOnMenuItemClickListener {
+                        itemHandler.removeOnClick(post.id)
+                        true
+                    }
+            }
+        }
+    }
+
+    override fun onViewRecycled(holder: FavoritesViewHolder) {
+        super.onViewRecycled(holder)
+        holder.itemView.setOnCreateContextMenuListener(null)
     }
 
     override fun getItemCount() = posts.size

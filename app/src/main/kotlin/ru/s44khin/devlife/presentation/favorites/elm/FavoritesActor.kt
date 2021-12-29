@@ -15,5 +15,13 @@ class FavoritesActor(
                 { posts -> Event.Internal.PostsLoaded(posts) },
                 { error -> Event.Internal.ErrorLoading(error) }
             )
+
+        is Command.DeletePost -> Observable.fromCallable {
+            database.postDao().delete(command.id)
+        }
+            .mapEvents(
+                { Event.Internal.PostDeleted },
+                { error -> Event.Internal.ErrorDeletePost(error) }
+            )
     }
 }

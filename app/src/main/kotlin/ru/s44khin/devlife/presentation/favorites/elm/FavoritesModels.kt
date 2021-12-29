@@ -9,24 +9,34 @@ data class State(
 
 sealed class Event {
 
-    sealed class Ui: Event() {
+    sealed class Ui : Event() {
         object LoadPosts : Ui()
+
+        data class DeletePost(val id: Int) : Ui()
     }
 
-    sealed class Internal: Event() {
+    sealed class Internal : Event() {
 
         data class PostsLoaded(val posts: List<Post>) : Internal()
 
+        object PostDeleted : Internal()
+
         data class ErrorLoading(val error: Throwable) : Internal()
+
+        data class ErrorDeletePost(val error: Throwable) : Internal()
     }
 }
 
 sealed class Effect {
 
     object ErrorLoading : Effect()
+
+    object ErrorDeletePost : Effect()
 }
 
 sealed class Command {
 
-    object LoadPosts: Command()
+    object LoadPosts : Command()
+
+    data class DeletePost(val id: Int) : Command()
 }

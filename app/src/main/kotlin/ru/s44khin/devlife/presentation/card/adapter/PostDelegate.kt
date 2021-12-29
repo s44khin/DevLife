@@ -3,7 +3,6 @@ package ru.s44khin.devlife.presentation.card.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +16,9 @@ class PostDelegate(
     private val itemHandler: ItemHandler
 ) : AbsListItemAdapterDelegate<Post, Post, PostDelegate.PostViewHolder>() {
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    open class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val gif: ImageView = itemView.findViewById(R.id.gif)
         val description: TextView = itemView.findViewById(R.id.description)
-        val topOverlay: FrameLayout = itemView.findViewById(R.id.top_overlay)
-        val leftOverlay: FrameLayout = itemView.findViewById(R.id.left_overlay)
-        val rightOverlay: FrameLayout = itemView.findViewById(R.id.right_overlay)
     }
 
     override fun isForViewType(item: Post, items: MutableList<Post>, position: Int) = true

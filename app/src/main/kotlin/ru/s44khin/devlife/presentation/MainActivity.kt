@@ -35,8 +35,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         when (intent.action) {
-            "ru.s44khin.devlife.latest" -> sharedPreferences.edit().putString(LAST_USED_FRAGMENT, FragmentLatest.TAG).apply()
-            "ru.s44khin.devlife.top" -> sharedPreferences.edit().putString(LAST_USED_FRAGMENT, FragmentTop.TAG).apply()
+            "ru.s44khin.devlife.latest" -> sharedPreferences.edit()
+                .putString(LAST_USED_FRAGMENT, FragmentLatest.TAG).apply()
+            "ru.s44khin.devlife.top" -> sharedPreferences.edit()
+                .putString(LAST_USED_FRAGMENT, FragmentTop.TAG).apply()
             "ru.s44khin.devlife.favorites" -> {
                 supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

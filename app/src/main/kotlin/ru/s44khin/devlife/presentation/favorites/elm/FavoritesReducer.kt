@@ -11,13 +11,25 @@ class FavoritesReducer : DslReducer<Event, State, Effect, Command>() {
             commands { +Command.LoadPosts }
         }
 
+        is Event.Ui.DeletePost -> {
+            commands { +Command.DeletePost(event.id) }
+        }
+
         is Event.Internal.PostsLoaded -> {
             state { copy(isLoading = false, posts = event.posts) }
+        }
+
+        is Event.Internal.PostDeleted -> {
+            commands { +Command.LoadPosts }
         }
 
         is Event.Internal.ErrorLoading -> {
             state { copy(isLoading = false) }
             effects { +Effect.ErrorLoading }
+        }
+
+        is Event.Internal.ErrorDeletePost -> {
+            effects { +Effect.ErrorDeletePost }
         }
     }
 }
