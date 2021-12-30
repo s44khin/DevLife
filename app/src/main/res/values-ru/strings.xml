@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DevLife</string>
+    <string name="latest">Последнее</string>
+    <string name="top">Лучшее</string>
+    <string name="favorites">Избранное</string>
+    <string name="no_posts_in_saved">Вы еще ничего не сохраняли</string>
+    <string name="link_copied">Ссылка скопированна</string>
+    <string name="delete">Удалить</string>
+</resources>
