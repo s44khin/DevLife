@@ -2,7 +2,7 @@
 Unofficial client for developerslife.ru  
 **Supported Material You Dinamic Colors**
 
-<img src="https://github.com/s44khin/DevLife/blob/0.1.1/images/1.png" width="100">
+<img src="https://github.com/s44khin/DevLife/blob/0.1.1/images/1.png" width="300">
 
 ## Libraries used:
 - [Material You](https://m3.material.io/)
