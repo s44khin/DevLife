@@ -5,7 +5,7 @@ import ru.s44khin.devlife.data.database.DevLifeDatabase
 import vivid.money.elmslie.core.ActorCompat
 
 class FavoritesActor(
-    private val database: DevLifeDatabase
+    val database: DevLifeDatabase
 ) : ActorCompat<Command, Event> {
 
     override fun execute(command: Command): Observable<Event> = when (command) {

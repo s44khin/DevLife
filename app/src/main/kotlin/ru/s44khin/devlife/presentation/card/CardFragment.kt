@@ -14,10 +14,13 @@ import ru.s44khin.devlife.databinding.FragmentCardBinding
 import ru.s44khin.devlife.presentation.card.adapter.ItemHandler
 import ru.s44khin.devlife.presentation.card.adapter.PaginationAdapterHelper
 import ru.s44khin.devlife.presentation.card.adapter.PostAdapter
-import ru.s44khin.devlife.presentation.card.elm.*
+import ru.s44khin.devlife.presentation.card.elm.CardReducer
+import ru.s44khin.devlife.presentation.card.elm.Effect
+import ru.s44khin.devlife.presentation.card.elm.Event
+import ru.s44khin.devlife.presentation.card.elm.State
 import ru.s44khin.devlife.presentation.favorites.FavoritesFragment
 import ru.s44khin.devlife.presentation.post.PostFragment
-import ru.s44khin.devlife.utils.elmDialogFragment.appComponent
+import ru.s44khin.devlife.utils.elmDialogFragment.mainComponent
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 
@@ -28,7 +31,11 @@ class FragmentLatest : CardFragment() {
         fun newInstance() = FragmentLatest()
     }
 
-    override val type = Type.LATEST
+    override fun createStore() = ElmStoreCompat(
+        initialState = State(),
+        reducer = CardReducer(),
+        actor = mainComponent.latestActor
+    )
 }
 
 class FragmentTop : CardFragment() {
@@ -38,12 +45,15 @@ class FragmentTop : CardFragment() {
         fun newInstance() = FragmentTop()
     }
 
-    override val type = Type.TOP
+    override fun createStore() = ElmStoreCompat(
+        initialState = State(),
+        reducer = CardReducer(),
+        actor = mainComponent.topActor
+    )
 }
 
 abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackListener, ItemHandler {
 
-    abstract val type: Type
     private var _binding: FragmentCardBinding? = null
     private val binding get() = _binding!!
     private lateinit var manager: CardStackLayoutManager
@@ -57,16 +67,6 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     }
     private var lastPosition = 0
     override val initEvent = Event.Ui.LoadPosts
-
-    override fun createStore() = ElmStoreCompat(
-        initialState = State(),
-        reducer = CardReducer(),
-        actor = CardActor(
-            repository = requireContext().appComponent.repository,
-            database = requireContext().appComponent.database,
-            type = type
-        )
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,

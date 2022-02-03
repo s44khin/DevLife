@@ -2,8 +2,8 @@ package ru.s44khin.devlife
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors
-import ru.s44khin.devlife.di.AppComponent
-import ru.s44khin.devlife.di.DaggerAppComponent
+import ru.s44khin.devlife.di.app.AppComponent
+import ru.s44khin.devlife.di.app.DaggerAppComponent
 
 class App : Application() {
 

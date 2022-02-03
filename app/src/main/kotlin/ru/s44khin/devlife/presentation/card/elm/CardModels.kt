@@ -2,10 +2,8 @@ package ru.s44khin.devlife.presentation.card.elm
 
 import ru.s44khin.devlife.data.model.Post
 
-sealed class Type {
-
-    object LATEST : Type()
-    object TOP : Type()
+enum class Type {
+    LATEST, TOP
 }
 
 data class State(

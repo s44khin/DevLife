@@ -1,4 +1,4 @@
-package ru.s44khin.devlife.di
+package ru.s44khin.devlife.di.app
 
 import dagger.Module
 
