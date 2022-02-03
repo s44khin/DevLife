@@ -1,6 +1,6 @@
 # DevLife
 Unofficial client for developerslife.ru  
-**Supported Material You Dinamic Colors**
+**Supported Material You Dynamic Colors**
 
 <img src="https://github.com/s44khin/DevLife/blob/0.1.1/images/1.png" width="300">
 
