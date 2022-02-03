@@ -15,4 +15,4 @@ Unofficial client for developerslife.ru
 - Retrofit
 - Glide
 
-![More screenshots](https://github.com/s44khin/DevLife/tree/0.1.1/images)
+[More screenshots](https://github.com/s44khin/DevLife/tree/0.1.1/images)
