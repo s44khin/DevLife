@@ -8,7 +8,6 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import com.yuyakaido.android.cardstackview.*
-import ru.s44khin.devlife.App
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentCardBinding
@@ -18,6 +17,7 @@ import ru.s44khin.devlife.presentation.card.adapter.PostAdapter
 import ru.s44khin.devlife.presentation.card.elm.*
 import ru.s44khin.devlife.presentation.favorites.FavoritesFragment
 import ru.s44khin.devlife.presentation.post.PostFragment
+import ru.s44khin.devlife.utils.elmDialogFragment.appComponent
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 
@@ -61,7 +61,11 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     override fun createStore() = ElmStoreCompat(
         initialState = State(),
         reducer = CardReducer(),
-        actor = CardActor(App.instance.repository, App.instance.database, type)
+        actor = CardActor(
+            repository = requireContext().appComponent.repository,
+            database = requireContext().appComponent.database,
+            type = type
+        )
     )
 
     override fun onCreateView(

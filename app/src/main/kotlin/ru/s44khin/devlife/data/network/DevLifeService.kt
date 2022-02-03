@@ -11,7 +11,6 @@ interface DevLifeService {
     companion object {
         const val PAGE_SIZE = 50
         const val LATEST = "latest"
-        const val HOT = "hot"
         const val TOP = "top"
     }
 

@@ -1,14 +1,14 @@
 package ru.s44khin.devlife.data.network
 
-class DevLifeRepository(
-    private val service: DevLifeService
-) {
+import io.reactivex.Single
+import ru.s44khin.devlife.data.model.BaseComments
+import ru.s44khin.devlife.data.model.BasePosts
 
-    fun getLatest(pageNumber: Int) = service.getPosts(DevLifeService.LATEST, pageNumber)
+interface DevLifeRepository {
 
-    fun getHot(pageNumber: Int) = service.getPosts(DevLifeService.HOT, pageNumber)
+    fun getLatest(pageNumber: Int): Single<BasePosts>
 
-    fun getTop(pageNumber: Int) = service.getPosts(DevLifeService.TOP, pageNumber)
+    fun getTop(pageNumber: Int): Single<BasePosts>
 
-    fun getComments(postId: Int) = service.getComments(postId)
+    fun getComments(postId: Int): Single<BaseComments>
 }

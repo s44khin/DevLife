@@ -29,7 +29,7 @@ class CardActor(
         }
 
         is Command.SaveToDatabase -> Observable.fromCallable {
-            database.postDao().insert(command.post)
+            database.insert(command.post)
         }
             .mapEvents(
                 { Event.Internal.PostSaved },

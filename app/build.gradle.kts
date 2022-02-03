@@ -53,6 +53,9 @@ dependencies {
     implementation(Dependencies.RX.RXJAVA)
     implementation(Dependencies.RX.RXANDROID)
 
+    implementation(Dependencies.Dagger.CORE)
+    kapt(Dependencies.Dagger.KAPT)
+
     implementation(Dependencies.Network.RETROFIT)
     implementation(Dependencies.Network.ADAPTER)
     implementation(Dependencies.Network.CONVERTER)

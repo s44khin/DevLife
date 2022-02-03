@@ -6,6 +6,8 @@ import com.yuyakaido.android.cardstackview.Direction;
 
 public interface AnimationSetting {
     Direction getDirection();
+
     int getDuration();
+
     Interpolator getInterpolator();
 }

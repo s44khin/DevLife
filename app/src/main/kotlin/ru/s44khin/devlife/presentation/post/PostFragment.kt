@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import ru.s44khin.devlife.App
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentPostBinding
 import ru.s44khin.devlife.presentation.post.adapter.CommentsAdapter
 import ru.s44khin.devlife.presentation.post.elm.*
 import ru.s44khin.devlife.utils.elmDialogFragment.ElmDialogFragment
+import ru.s44khin.devlife.utils.elmDialogFragment.appComponent
 import vivid.money.elmslie.core.ElmStoreCompat
 
 class PostFragment : ElmDialogFragment<Event, Effect, State>() {
@@ -36,7 +36,9 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     override fun createStore() = ElmStoreCompat(
         initialState = State(),
         reducer = PostReducer(),
-        actor = PostActor(App.instance.repository)
+        actor = PostActor(
+            repository = requireContext().appComponent.repository
+        )
     )
 
     override fun onCreateView(

@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.s44khin.devlife.App
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentFavoritesBinding
 import ru.s44khin.devlife.presentation.favorites.adapter.FavoritesAdapter
@@ -16,6 +15,7 @@ import ru.s44khin.devlife.presentation.favorites.adapter.FavoritesDiffUtilCallba
 import ru.s44khin.devlife.presentation.favorites.adapter.ItemHandler
 import ru.s44khin.devlife.presentation.favorites.elm.*
 import ru.s44khin.devlife.presentation.post.PostFragment
+import ru.s44khin.devlife.utils.elmDialogFragment.appComponent
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 
@@ -36,7 +36,9 @@ class FavoritesFragment : ElmFragment<Event, Effect, State>(), ItemHandler {
     override fun createStore() = ElmStoreCompat(
         initialState = State(),
         reducer = FavoritesReducer(),
-        actor = FavoritesActor(App.instance.database)
+        actor = FavoritesActor(
+            database = requireContext().appComponent.database
+        )
     )
 
     override fun onCreateView(

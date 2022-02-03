@@ -4,7 +4,8 @@ import android.content.Context;
 
 public final class DisplayUtil {
 
-    private DisplayUtil() {}
+    private DisplayUtil() {
+    }
 
     public static int dpToPx(Context context, float dp) {
         float density = context.getResources().getDisplayMetrics().density;

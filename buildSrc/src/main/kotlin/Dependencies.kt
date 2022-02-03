@@ -46,7 +46,9 @@ object Dependencies {
 
     object Dagger {
 
-        private const val DAGGER_VERSION = ""
+        private const val DAGGER_VERSION = "2.40.5"
+        const val CORE = "com.google.dagger:dagger:$DAGGER_VERSION"
+        const val KAPT = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     }
 
     object Network {

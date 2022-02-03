@@ -10,14 +10,14 @@ class FavoritesActor(
 
     override fun execute(command: Command): Observable<Event> = when (command) {
 
-        is Command.LoadPosts -> database.postDao().getAll()
+        is Command.LoadPosts -> database.getPosts()
             .mapEvents(
                 { posts -> Event.Internal.PostsLoaded(posts) },
                 { error -> Event.Internal.ErrorLoading(error) }
             )
 
         is Command.DeletePost -> Observable.fromCallable {
-            database.postDao().delete(command.id)
+            database.deletePost(command.id)
         }
             .mapEvents(
                 { Event.Internal.PostDeleted },

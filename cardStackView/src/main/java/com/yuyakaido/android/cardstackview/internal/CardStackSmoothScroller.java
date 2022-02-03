@@ -2,25 +2,17 @@ package com.yuyakaido.android.cardstackview.internal;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.RewindAnimationSetting;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class CardStackSmoothScroller extends RecyclerView.SmoothScroller {
-
-    public enum ScrollType {
-        AutomaticSwipe,
-        AutomaticRewind,
-        ManualSwipe,
-        ManualCancel
-    }
 
     private ScrollType type;
     private CardStackLayoutManager manager;
-
     public CardStackSmoothScroller(
             ScrollType type,
             CardStackLayoutManager manager
@@ -174,6 +166,13 @@ public class CardStackSmoothScroller extends RecyclerView.SmoothScroller {
                 break;
         }
         return dy;
+    }
+
+    public enum ScrollType {
+        AutomaticSwipe,
+        AutomaticRewind,
+        ManualSwipe,
+        ManualCancel
     }
 
 }
