@@ -14,4 +14,7 @@ internal val Context.appComponent: AppComponent
     }
 
 internal val Fragment.mainComponent: MainComponent
-    get() = (activity as MainActivity).mainComponent
+    get() = if (activity is MainActivity)
+        (activity as MainActivity).mainComponent
+    else
+        error("activity in not MainActivity")
