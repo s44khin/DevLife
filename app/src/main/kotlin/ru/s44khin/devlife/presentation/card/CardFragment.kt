@@ -1,7 +1,9 @@
 package ru.s44khin.devlife.presentation.card
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
@@ -18,7 +20,6 @@ import ru.s44khin.devlife.presentation.favorites.FavoritesFragment
 import ru.s44khin.devlife.presentation.post.PostFragment
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
-import java.util.*
 
 class FragmentLatest : CardFragment() {
 

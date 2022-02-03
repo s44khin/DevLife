@@ -16,11 +16,14 @@ object Dependencies {
         private const val MATERIAL_VERSION = "1.5.0"
         private const val SWIPE_REFRESH_LAYOUT_VERSION = "1.1.0"
 
+        private const val RECYCLER_VIEW_VERSION = "1.2.1"
+
         const val CORE = "androidx.core:core-ktx:$CORE_VERSION"
         const val APP_COMPAT = "androidx.appcompat:appcompat:$APPCOMPAT_VERSION"
         const val MATERIAL = "com.google.android.material:material:$MATERIAL_VERSION"
         const val SWIPE_REFRESH_LAYOUT =
             "androidx.swiperefreshlayout:swiperefreshlayout:$SWIPE_REFRESH_LAYOUT_VERSION"
+        const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview:$RECYCLER_VIEW_VERSION"
     }
 
     object Elmslie {
@@ -39,6 +42,11 @@ object Dependencies {
 
         const val RXJAVA = "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION"
         const val RXANDROID = "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
+    }
+
+    object Dagger {
+
+        private const val DAGGER_VERSION = ""
     }
 
     object Network {
@@ -75,11 +83,9 @@ object Dependencies {
     object Other {
 
         private const val SHIMMER_VERSION = "0.5.0"
-        private const val CARD_STACK_VERSION = "2.3.4"
         private const val GLIDE_VERSION = "4.12.0"
 
         const val SHIMMER = "com.facebook.shimmer:shimmer:$SHIMMER_VERSION"
-        const val CARD_STACK = "com.yuyakaido.android:card-stack-view:$CARD_STACK_VERSION"
         const val GLIDE = "com.github.bumptech.glide:glide:$GLIDE_VERSION"
     }
 }

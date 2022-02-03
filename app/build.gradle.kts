@@ -67,6 +67,7 @@ dependencies {
     implementation(Dependencies.AdapterDelegates.LAYOUT)
 
     implementation(Dependencies.Other.SHIMMER)
-    implementation(Dependencies.Other.CARD_STACK)
     implementation(Dependencies.Other.GLIDE)
+
+    implementation(project(mapOf("path" to ":CardStackView")))
 }
