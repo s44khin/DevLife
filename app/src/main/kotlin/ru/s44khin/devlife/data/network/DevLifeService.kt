@@ -11,13 +11,16 @@ interface DevLifeService {
     companion object {
         const val PAGE_SIZE = 50
         const val LATEST = "latest"
-        const val HOT = "hot"
         const val TOP = "top"
     }
 
-    @GET("/{chapter}/{pageNumber}?json=true&pageSize=$PAGE_SIZE")
-    fun getPosts(
-        @Path("chapter") chapter: String,
+    @GET("/$LATEST/{pageNumber}?json=true&pageSize=$PAGE_SIZE")
+    fun getLatest(
+        @Path("pageNumber") pageNumber: Int
+    ): Single<BasePosts>
+
+    @GET("/$TOP/{pageNumber}?json=true&pageSize=$PAGE_SIZE")
+    fun getTop(
         @Path("pageNumber") pageNumber: Int
     ): Single<BasePosts>
 
