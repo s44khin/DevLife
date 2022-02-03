@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 32
+        minSdk = Config.MIN_SDK
+        targetSdk = Config.TARGET_SDK
     }
 
     buildTypes {

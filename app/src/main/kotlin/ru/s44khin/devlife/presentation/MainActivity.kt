@@ -35,12 +35,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         mainComponent = DaggerMainComponent.builder()
             .repository(appComponent.repository)
             .database(appComponent.database)
             .build()
+
+        super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(binding.root)
@@ -63,12 +63,12 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
             }
-
-            initNavigation()
         }
+
+        initNavigation(savedInstanceState)
     }
 
-    private fun initNavigation() {
+    private fun initNavigation(savedInstanceState: Bundle?) {
         binding.navigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_latest -> {
@@ -101,7 +101,8 @@ class MainActivity : AppCompatActivity() {
 
         val last = sharedPreferences.getString(LAST_USED_FRAGMENT, FragmentLatest.TAG)
 
-        binding.navigationView.selectedItemId = if (last == FragmentLatest.TAG)
-            R.id.menu_latest else R.id.menu_top
+        if (savedInstanceState == null)
+            binding.navigationView.selectedItemId = if (last == FragmentLatest.TAG)
+                R.id.menu_latest else R.id.menu_top
     }
 }
