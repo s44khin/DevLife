@@ -125,11 +125,9 @@ class CardStackLayoutManager(
         }
     }
 
-    override fun canScrollHorizontally() =
-        setting.swipeableMethod.canSwipe && setting.canScrollHorizontal
+    override fun canScrollHorizontally() = swipeableMethod.canSwipe && canScrollHorizontal
 
-    override fun canScrollVertically() =
-        setting.swipeableMethod.canSwipe && setting.canScrollVertical
+    override fun canScrollVertically() = swipeableMethod.canSwipe && canScrollVertical
 
     override fun scrollHorizontallyBy(
         dx: Int,
@@ -141,7 +139,7 @@ class CardStackLayoutManager(
 
         when (state.status) {
             Idle, Dragging, ManualSwipeAnimating ->
-                if (setting.swipeableMethod.canSwipeManually) {
+                if (swipeableMethod.canSwipeManually) {
                     state.dx -= dx
                     update(recycler)
                     return dx
@@ -152,7 +150,7 @@ class CardStackLayoutManager(
                 return dx
             }
             AutomaticSwipeAnimating ->
-                if (setting.swipeableMethod.canSwipeAutomatically) {
+                if (swipeableMethod.canSwipeAutomatically) {
                     state.dx -= dx
                     update(recycler)
                     return dx
@@ -166,14 +164,14 @@ class CardStackLayoutManager(
     override fun scrollVerticallyBy(
         dy: Int,
         recycler: RecyclerView.Recycler,
-        s: RecyclerView.State?
+        rvState: RecyclerView.State?
     ): Int {
         if (state.topPosition == itemCount)
             return 0
 
         when (state.status) {
             Idle, Dragging, ManualSwipeAnimating ->
-                if (setting.swipeableMethod.canSwipeManually) {
+                if (swipeableMethod.canSwipeManually) {
                     state.dy -= dy
                     update(recycler)
                     return dy
@@ -184,7 +182,7 @@ class CardStackLayoutManager(
                 return dy
             }
             AutomaticSwipeAnimating ->
-                if (setting.swipeableMethod.canSwipeAutomatically) {
+                if (swipeableMethod.canSwipeAutomatically) {
                     state.dy -= dy
                     update(recycler)
                     return dy
@@ -208,7 +206,7 @@ class CardStackLayoutManager(
                     smoothScrollToPrevious(state.targetPosition)
                 }
             }
-            RecyclerView.SCROLL_STATE_DRAGGING -> if (setting.swipeableMethod.canSwipeManually) {
+            RecyclerView.SCROLL_STATE_DRAGGING -> if (swipeableMethod.canSwipeManually) {
                 state.next(Dragging)
             }
         }
@@ -217,7 +215,7 @@ class CardStackLayoutManager(
     override fun computeScrollVectorForPosition(targetPosition: Int): PointF? = null
 
     override fun scrollToPosition(position: Int) {
-        if (setting.swipeableMethod.canSwipeAutomatically && state.canScrollToPosition(
+        if (swipeableMethod.canSwipeAutomatically && state.canScrollToPosition(
                 position = position,
                 itemCount = itemCount
             )
@@ -232,7 +230,7 @@ class CardStackLayoutManager(
         s: RecyclerView.State?,
         position: Int
     ) {
-        if (setting.swipeableMethod.canSwipeAutomatically && state.canScrollToPosition(
+        if (swipeableMethod.canSwipeAutomatically && state.canScrollToPosition(
                 position = position,
                 itemCount = itemCount
             )
@@ -322,7 +320,7 @@ class CardStackLayoutManager(
         val parentBottom = height - paddingBottom
 
         var i = state.topPosition
-        while (i < state.topPosition + setting.visibleCount && i < itemCount) {
+        while (i < state.topPosition + visibleCount && i < itemCount) {
             val child = recycler.getViewForPosition(i)
             addView(child, 0)
             measureChildWithMargins(child, 0, 0)
@@ -357,13 +355,13 @@ class CardStackLayoutManager(
 
     private fun View.updateTranslation(index: Int) {
         val nextIndex = index - 1
-        val translationPx = setting.translationInterval.toPx(context)
+        val translationPx = translationInterval.toPx(context)
         val currentTranslation = index * translationPx
         val nextTranslation = nextIndex * translationPx
         val targetTranslation =
             currentTranslation - (currentTranslation - nextTranslation) * state.ratio
 
-        when (setting.stackFrom) {
+        when (stackFrom) {
             StackFrom.Left -> {
                 translationX = -targetTranslation
             }
@@ -403,11 +401,11 @@ class CardStackLayoutManager(
 
     private fun View.updateScale(index: Int) {
         val nextIndex = index - 1
-        val currentScale = 1.0f - index * (1.0f - setting.scaleInterval)
-        val nextScale = 1.0f - nextIndex * (1.0f - setting.scaleInterval)
+        val currentScale = 1.0f - index * (1.0f - scaleInterval)
+        val nextScale = 1.0f - nextIndex * (1.0f - scaleInterval)
         val targetScale = currentScale + (nextScale - currentScale) * state.ratio
 
-        when (setting.stackFrom) {
+        when (stackFrom) {
             StackFrom.None -> {
                 scaleX = targetScale
                 scaleY = targetScale
@@ -453,7 +451,7 @@ class CardStackLayoutManager(
     }
 
     private fun View.updateRotation() {
-        val degree = state.dx * setting.maxDegree / width * state.proportion
+        val degree = state.dx * maxDegree / width * state.proportion
         rotation = degree
     }
 
@@ -472,7 +470,7 @@ class CardStackLayoutManager(
         rightOverlay.setZeroAlpha()
         bottomOverlay.setZeroAlpha()
 
-        val newAlpha = setting.overlayInterpolator.getInterpolation(state.ratio)
+        val newAlpha = overlayInterpolator.getInterpolation(state.ratio)
 
         when (state.direction) {
             Direction.Left -> leftOverlay.setAlpha(newAlpha)
