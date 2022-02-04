@@ -295,6 +295,8 @@ class CardStackLayoutManager(
                 removeAndRecycleView(view, recycler)
             }
 
+            val diretion = state.direction
+
             state.next(state.status.toAnimatedStatus())
             state.topPosition++
             state.dx = 0
@@ -304,7 +306,7 @@ class CardStackLayoutManager(
                 state.targetPosition = RecyclerView.NO_POSITION
 
             Handler(Looper.getMainLooper()).post {
-                listener.onCardSwiped(state.direction)
+                listener.onCardSwiped(diretion)
                 topView?.let { view ->
                     listener.onCardAppeared(view, state.topPosition)
                 }
@@ -345,6 +347,9 @@ class CardStackLayoutManager(
 
             i++
         }
+
+        if (state.status.isDragging())
+            listener.onCardDragging(state.direction, state.ratio)
     }
 
     private fun View.updateTranslation() {

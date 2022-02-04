@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import ru.s44khin.cardstackview.*
 import ru.s44khin.devlife.R
@@ -100,13 +101,14 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     }
 
     private fun initCardStackView() = binding.recyclerView.apply {
-        layoutManager = CardStackLayoutManager(this@CardFragment).apply {
+        manager = CardStackLayoutManager(this@CardFragment).apply {
             stackFrom = StackFrom.Bottom
             canScrollHorizontal = true
             canScrollVertical = true
             visibleCount = 3
             direction = listOf(Direction.Top, Direction.Left, Direction.Right)
         }
+        layoutManager = manager
         adapter = this@CardFragment.adapter
     }
 
