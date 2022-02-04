@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentFavoritesBinding
 import ru.s44khin.devlife.presentation.favorites.adapter.FavoritesAdapter
@@ -60,8 +59,6 @@ class FavoritesFragment : ElmFragment<Event, Effect, State>(), ItemHandler {
     }
 
     override fun render(state: State) {
-        binding.shimmer.isVisible = state.isLoading
-
         if (state.posts != null) {
             val callback = FavoritesDiffUtilCallback(adapter.posts, state.posts)
             val diffUtilResult = DiffUtil.calculateDiff(callback, true)
@@ -69,20 +66,14 @@ class FavoritesFragment : ElmFragment<Event, Effect, State>(), ItemHandler {
             diffUtilResult.dispatchUpdatesTo(adapter)
         }
 
-        if (state.posts != null && state.posts.isEmpty()) {
-            binding.emptyIcon.visibility = View.VISIBLE
-            binding.emptyText.visibility = View.VISIBLE
+        if (!state.posts.isNullOrEmpty()) {
+            binding.empty.isVisible = false
         }
     }
 
     private fun initRecyclerView() = binding.favoritesRecyclerView.apply {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = this@FavoritesFragment.adapter
-        addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                binding.titleBar.isLifted = recyclerView.canScrollVertically(-1)
-            }
-        })
     }
 
     override fun itemOnClick(post: Post) {
