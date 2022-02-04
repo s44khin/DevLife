@@ -13,11 +13,15 @@ class CardStackView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : RecyclerView(context, attrs, defStyle) {
 
+    init {
+        initialize()
+    }
+
     private val observer = CardStackDataObserver(this)
 
-    override fun setLayoutManager(manager: LayoutManager?) = when (manager) {
-        is CardStackLayoutManager -> super.setLayoutManager(manager)
-        else -> error("CardStackView must be set CardStackLayoutManager.")
+    override fun setLayoutManager(manager: LayoutManager?) {
+        require(manager is CardStackLayoutManager) { "CardStackView must be set CardStackLayoutManager." }
+        super.setLayoutManager(manager)
     }
 
     override fun setAdapter(adapter: Adapter<*>?) {
@@ -51,7 +55,7 @@ class CardStackView @JvmOverloads constructor(
             smoothScrollToPosition((layoutManager as CardStackLayoutManager).topPosition - 1)
     }
 
-    fun initialize() {
+    private fun initialize() {
         CardStackSnapHelper().attachToRecyclerView(this)
         overScrollMode = OVER_SCROLL_NEVER
     }

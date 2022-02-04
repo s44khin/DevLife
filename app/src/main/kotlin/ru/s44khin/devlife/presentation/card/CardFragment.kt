@@ -100,16 +100,13 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     }
 
     private fun initCardStackView() = binding.recyclerView.apply {
-        manager = CardStackLayoutManager(this@CardFragment)
-
-        manager.apply {
+        layoutManager = CardStackLayoutManager(this@CardFragment).apply {
             stackFrom = StackFrom.Bottom
             canScrollHorizontal = true
             canScrollVertical = true
             visibleCount = 3
             direction = listOf(Direction.Top, Direction.Left, Direction.Right)
         }
-
         adapter = this@CardFragment.adapter
     }
 

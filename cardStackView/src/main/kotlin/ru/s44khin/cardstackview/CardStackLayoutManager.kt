@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.Interpolator
 import androidx.annotation.FloatRange
 import androidx.recyclerview.widget.RecyclerView
-import com.yuyakaido.android.cardstackview.R
 import ru.s44khin.cardstackview.internal.CardStackSetting
 import ru.s44khin.cardstackview.internal.CardStackSmoothScroller
 import ru.s44khin.cardstackview.internal.CardStackState
@@ -456,7 +455,7 @@ class CardStackLayoutManager(
     }
 
     private fun View.resetRotation() {
-        rotation = 0.0f
+        this.rotation = 0.0f
     }
 
     private fun View.updateOverlay() {
