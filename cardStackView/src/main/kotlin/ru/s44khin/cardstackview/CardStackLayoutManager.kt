@@ -117,10 +117,10 @@ class CardStackLayoutManager(
         ViewGroup.LayoutParams.MATCH_PARENT
     )
 
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler, s: RecyclerView.State?) {
+    override fun onLayoutChildren(recycler: RecyclerView.Recycler, rvState: RecyclerView.State?) {
         update(recycler)
 
-        if ((s?.didStructureChange() ?: return) && topView != null) {
+        if ((rvState?.didStructureChange() ?: return) && topView != null) {
             listener.onCardAppeared(topView, state.topPosition)
         }
     }
@@ -134,7 +134,7 @@ class CardStackLayoutManager(
     override fun scrollHorizontallyBy(
         dx: Int,
         recycler: RecyclerView.Recycler,
-        s: RecyclerView.State?
+        rwState: RecyclerView.State?
     ): Int {
         if (state.topPosition == itemCount)
             return 0
@@ -185,7 +185,7 @@ class CardStackLayoutManager(
             }
             AutomaticSwipeAnimating ->
                 if (setting.swipeableMethod.canSwipeAutomatically) {
-                    state.dy = -dy
+                    state.dy -= dy
                     update(recycler)
                     return dy
                 }
@@ -195,8 +195,8 @@ class CardStackLayoutManager(
         return 0
     }
 
-    override fun onScrollStateChanged(s: Int) {
-        when (s) {
+    override fun onScrollStateChanged(newState: Int) {
+        when (newState) {
             RecyclerView.SCROLL_STATE_IDLE -> when (state.targetPosition) {
                 RecyclerView.NO_POSITION, state.topPosition -> {
                     state.next(Idle)
@@ -218,8 +218,8 @@ class CardStackLayoutManager(
 
     override fun scrollToPosition(position: Int) {
         if (setting.swipeableMethod.canSwipeAutomatically && state.canScrollToPosition(
-                position,
-                itemCount
+                position = position,
+                itemCount = itemCount
             )
         ) {
             state.topPosition = position
@@ -233,8 +233,8 @@ class CardStackLayoutManager(
         position: Int
     ) {
         if (setting.swipeableMethod.canSwipeAutomatically && state.canScrollToPosition(
-                position,
-                itemCount
+                position = position,
+                itemCount = itemCount
             )
         )
             smoothScrollToPosition(position)
@@ -320,6 +320,7 @@ class CardStackLayoutManager(
         val parentLeft = paddingLeft
         val parentRight = width - paddingLeft
         val parentBottom = height - paddingBottom
+
         var i = state.topPosition
         while (i < state.topPosition + setting.visibleCount && i < itemCount) {
             val child = recycler.getViewForPosition(i)
@@ -351,7 +352,7 @@ class CardStackLayoutManager(
 
     private fun View.updateTranslation() {
         translationX = state.dx.toFloat()
-        translationX = state.dy.toFloat()
+        translationY = state.dy.toFloat()
     }
 
     private fun View.updateTranslation(index: Int) {
@@ -363,22 +364,30 @@ class CardStackLayoutManager(
             currentTranslation - (currentTranslation - nextTranslation) * state.ratio
 
         when (setting.stackFrom) {
-            StackFrom.Left -> translationX = targetTranslation
+            StackFrom.Left -> {
+                translationX = -targetTranslation
+            }
             StackFrom.TopAndLeft -> {
                 translationY = -targetTranslation
                 translationX = -targetTranslation
             }
-            StackFrom.Top -> translationY = -targetTranslation
+            StackFrom.Top -> {
+                translationY = -targetTranslation
+            }
             StackFrom.TopAndRight -> {
                 translationY = -targetTranslation
                 translationX = targetTranslation
             }
-            StackFrom.Right -> translationX = targetTranslation
+            StackFrom.Right -> {
+                translationX = targetTranslation
+            }
             StackFrom.BottomAndRight -> {
                 translationY = targetTranslation
                 translationX = targetTranslation
             }
-            StackFrom.Bottom -> translationY = targetTranslation
+            StackFrom.Bottom -> {
+                translationY = targetTranslation
+            }
             StackFrom.BottomAndLeft -> {
                 translationY = targetTranslation
                 translationX = -targetTranslation
@@ -486,8 +495,8 @@ class CardStackLayoutManager(
     }
 
     private fun View?.setAlpha(value: Float) {
-        this?.let {
-            alpha = value
+        this?.let { view ->
+            view.alpha = value
         }
     }
 
