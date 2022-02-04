@@ -1,6 +1,6 @@
-package com.yuyakaido.android.cardstackview;
+package ru.s44khin.cardstackview
 
-public enum StackFrom {
+enum class StackFrom {
     None,
     Top,
     TopAndLeft,
@@ -9,5 +9,5 @@ public enum StackFrom {
     BottomAndLeft,
     BottomAndRight,
     Left,
-    Right,
+    Right
 }

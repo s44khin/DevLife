@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-import com.yuyakaido.android.cardstackview.*
+import ru.s44khin.cardstackview.*
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentCardBinding
@@ -90,73 +91,57 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
         }
     }
 
-    override fun onCardDragging(direction: Direction?, ratio: Float) {
+    override fun onCardDragging(direction: Direction, ratio: Float) {
         binding.titleBar.isLifted = true
     }
 
-    override fun onCardSwiped(direction: Direction?) {
+    override fun onCardSwiped(direction: Direction) {
         if (direction == Direction.Top)
             store.accept(Event.Ui.SaveToDatabase(adapter.items[manager.topPosition - 1]))
     }
 
-    override fun onCardRewound() {
-
-    }
-
-    override fun onCardCanceled() {
-
-    }
-
-    override fun onCardAppeared(view: View?, position: Int) {
-
-    }
-
-    override fun onCardDisappeared(view: View?, position: Int) {
-
-    }
-
     private fun initCardStackView() = binding.recyclerView.apply {
-        manager = CardStackLayoutManager(context, this@CardFragment)
-
-        manager.apply {
-            setStackFrom(StackFrom.Bottom)
-            setCanScrollHorizontal(true)
-            setCanScrollVertical(true)
-            setVisibleCount(3)
-            setDirections(listOf(Direction.Top, Direction.Left, Direction.Right))
+        manager = CardStackLayoutManager(this@CardFragment).apply {
+            stackFrom = StackFrom.Bottom
+            canScrollHorizontal = true
+            canScrollVertical = true
+            visibleCount = 3
+            direction = listOf(Direction.Top, Direction.Left, Direction.Right)
         }
-
         layoutManager = manager
         adapter = this@CardFragment.adapter
     }
 
     private fun initButtons() = binding.apply {
         fabSwap.setOnClickListener {
-            val setting = SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Right)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(AccelerateInterpolator())
-                .build()
-            manager.setSwipeAnimationSetting(setting)
+            val setting = SwipeAnimationSetting().apply {
+                direction = Direction.Right
+                duration = Duration.Normal.duration
+                interpolator = AccelerateInterpolator()
+            }
+
+            manager.swipeAnimationSetting = setting
             binding.recyclerView.swipe()
         }
         fabLike.setOnClickListener {
-            val setting = SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Top)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(AccelerateInterpolator())
-                .build()
-            manager.setSwipeAnimationSetting(setting)
+            val setting = SwipeAnimationSetting().apply {
+                direction = Direction.Top
+                duration = Duration.Normal.duration
+                interpolator = AccelerateInterpolator()
+            }
+
+            manager.swipeAnimationSetting = setting
             binding.titleBar.isLifted = true
             binding.recyclerView.swipe()
         }
         fabRestore.setOnClickListener {
-            val setting = RewindAnimationSetting.Builder()
-                .setDirection(Direction.Bottom)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(DecelerateInterpolator())
-                .build()
-            manager.setRewindAnimationSetting(setting)
+            val setting = RewindAnimationSetting().apply {
+                direction = Direction.Bottom
+                duration = Duration.Normal.duration
+                interpolator = DecelerateInterpolator()
+            }
+
+            manager.rewindAnimationSetting = setting
             binding.recyclerView.rewind()
         }
     }
