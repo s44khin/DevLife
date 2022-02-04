@@ -38,7 +38,7 @@
             android:src="@drawable/ic_code" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <com.yuyakaido.android.cardstackview.CardStackView
+    <ru.s44khin.cardstackview.CardStackView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
