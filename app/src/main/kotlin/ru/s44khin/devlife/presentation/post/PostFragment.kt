@@ -85,7 +85,7 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     }
 
     private fun initButtons() = binding.apply {
-        postIcShare.setOnClickListener {
+        cardShare.setOnClickListener {
             val text = "https://developerslife.ru/${post.id}"
             val sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND

@@ -7,4 +7,5 @@
     <string name="no_posts_in_saved">Вы еще ничего не сохраняли</string>
     <string name="link_copied">Ссылка скопированна</string>
     <string name="delete">Удалить</string>
+    <string name="share">Поделиться</string>
 </resources>
