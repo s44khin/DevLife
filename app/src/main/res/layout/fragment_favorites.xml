@@ -14,15 +14,15 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize">
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/titleBarMenu"
                 android:layout_width="match_parent"
-                app:layout_collapseMode="pin"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
+                app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_back"
                 app:title="@string/favorites" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -38,9 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
+            android:paddingStart="@dimen/defaultPadding"
+            android:paddingTop="@dimen/defaultPadding"
+            android:paddingEnd="@dimen/defaultPadding"
             android:paddingBottom="48dp"
             tools:listitem="@layout/item_favorite" />
     </androidx.core.widget.NestedScrollView>
@@ -48,20 +48,20 @@
     <LinearLayout
         android:id="@+id/empty"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="100dp"
-            android:layout_gravity="center"
             android:layout_height="100dp"
+            android:layout_gravity="center"
             android:src="@drawable/ic_code" />
 
         <TextView
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/no_posts_in_saved" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

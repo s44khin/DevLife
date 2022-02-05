@@ -1,9 +1,7 @@
 package ru.s44khin.devlife.presentation.card
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
