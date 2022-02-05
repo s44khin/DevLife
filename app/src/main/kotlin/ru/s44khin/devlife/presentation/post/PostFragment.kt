@@ -22,19 +22,25 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
 
     companion object {
         const val TAG = "POST_FRAGMENT"
-        private var postNull: Post? = null
-        private val post get() = postNull!!
+        private const val POST = "POST"
 
-        fun newInstance(post: Post): PostFragment {
-            postNull = post
-            return PostFragment()
+        fun newInstance(post: Post) = PostFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(POST, post)
+            }
         }
     }
 
     private var _binding: FragmentPostBinding? = null
     private val binding get() = _binding!!
 
-    override val initEvent = Event.Ui.LoadComments(post.id)
+    private val post: Post by lazy {
+        requireArguments().getParcelable(POST)!!
+    }
+
+    override val initEvent by lazy {
+        Event.Ui.LoadComments(post.id)
+    }
 
     override fun createStore() = ElmStoreCompat(
         initialState = State(),
@@ -47,7 +53,7 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPostBinding.inflate(inflater, container, false)
+        _binding = FragmentPostBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -88,5 +94,10 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
             }
             startActivity(Intent.createChooser(sendIntent, null))
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

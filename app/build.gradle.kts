@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -68,6 +69,8 @@ dependencies {
 
     implementation(Dependencies.AdapterDelegates.CORE)
     implementation(Dependencies.AdapterDelegates.LAYOUT)
+
+    implementation(Dependencies.ViewBindingPropertyDelegate.NO_REFLECTION)
 
     implementation(Dependencies.Other.SHIMMER)
     implementation(Dependencies.Other.GLIDE)

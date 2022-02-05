@@ -1,12 +1,12 @@
 package ru.s44khin.devlife.presentation.favorites
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
+import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentFavoritesBinding
 import ru.s44khin.devlife.presentation.favorites.adapter.FavoritesAdapter
@@ -21,15 +21,15 @@ import ru.s44khin.devlife.utils.elmDialogFragment.mainComponent
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 
-class FavoritesFragment : ElmFragment<Event, Effect, State>(), ItemHandler {
+class FavoritesFragment : ElmFragment<Event, Effect, State>(R.layout.fragment_favorites),
+    ItemHandler {
 
     companion object {
         const val TAG = "FAVORITES_FRAGMENT"
         fun newInstance() = FavoritesFragment()
     }
 
-    private var _binding: FragmentFavoritesBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentFavoritesBinding::bind)
     private val adapter: FavoritesAdapter by lazy {
         FavoritesAdapter(itemHandler = this)
     }
@@ -40,15 +40,6 @@ class FavoritesFragment : ElmFragment<Event, Effect, State>(), ItemHandler {
         reducer = FavoritesReducer(),
         actor = mainComponent.favoritesActor
     )
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentFavoritesBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.titleBarMenu.setNavigationOnClickListener {

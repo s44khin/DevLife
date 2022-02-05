@@ -82,6 +82,13 @@ object Dependencies {
             "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$VERSION"
     }
 
+    object ViewBindingPropertyDelegate {
+
+        private const val VERSION = "1.5.3"
+        const val NO_REFLECTION =
+            "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$VERSION"
+    }
+
     object Other {
 
         private const val SHIMMER_VERSION = "0.5.0"
