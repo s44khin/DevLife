@@ -12,7 +12,7 @@ import ru.s44khin.devlife.di.main.MainComponent
 import ru.s44khin.devlife.presentation.card.FragmentLatest
 import ru.s44khin.devlife.presentation.card.FragmentTop
 import ru.s44khin.devlife.presentation.favorites.FavoritesFragment
-import ru.s44khin.devlife.utils.elmDialogFragment.appComponent
+import ru.s44khin.devlife.utils.appComponent
 
 class MainActivity : AppCompatActivity() {
 

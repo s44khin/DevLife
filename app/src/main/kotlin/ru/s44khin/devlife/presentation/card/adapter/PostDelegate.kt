@@ -3,13 +3,12 @@ package ru.s44khin.devlife.presentation.card.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.request.ImageRequest
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
-import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.ItemPostBinding
+import ru.s44khin.devlife.utils.getLoader
 
 class PostDelegate(
     private val itemHandler: ItemHandler
@@ -30,14 +29,7 @@ class PostDelegate(
             description.text = post.description
 
             gif.apply {
-                val loader = CircularProgressDrawable(context).apply {
-                    strokeWidth = context.resources.displayMetrics.density * 5f
-                    centerRadius = context.resources.displayMetrics.density * 20f
-                    setColorSchemeColors(R.color.primary)
-                    start()
-                }
-
-                hierarchy.setPlaceholderImage(loader)
+                hierarchy.setPlaceholderImage(getLoader(context))
                 controller = Fresco.newDraweeControllerBuilder().apply {
                     imageRequest = ImageRequest.fromUri(post.gifURL)
                     autoPlayAnimations = true

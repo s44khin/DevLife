@@ -17,7 +17,7 @@ import ru.s44khin.devlife.presentation.favorites.elm.Event
 import ru.s44khin.devlife.presentation.favorites.elm.FavoritesReducer
 import ru.s44khin.devlife.presentation.favorites.elm.State
 import ru.s44khin.devlife.presentation.post.PostFragment
-import ru.s44khin.devlife.utils.elmDialogFragment.mainComponent
+import ru.s44khin.devlife.utils.mainComponent
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 

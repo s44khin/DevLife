@@ -18,7 +18,7 @@ import ru.s44khin.devlife.presentation.post.elm.Event
 import ru.s44khin.devlife.presentation.post.elm.PostReducer
 import ru.s44khin.devlife.presentation.post.elm.State
 import ru.s44khin.devlife.utils.elmDialogFragment.ElmDialogFragment
-import ru.s44khin.devlife.utils.elmDialogFragment.mainComponent
+import ru.s44khin.devlife.utils.mainComponent
 import vivid.money.elmslie.core.ElmStoreCompat
 
 class PostFragment : ElmDialogFragment<Event, Effect, State>() {
