@@ -25,32 +25,38 @@ class FavoritesAdapter(
         val post = posts[position]
         val context = holder.itemView.context
 
-        holder.binding.description.text = post.description
+        holder.binding.apply {
+            description.text = post.description
 
-        val loader = CircularProgressDrawable(context)
-        loader.strokeWidth = context.resources.displayMetrics.density * 5f
-        loader.centerRadius = context.resources.displayMetrics.density * 20f
-        loader.setColorSchemeColors(R.color.primary)
-        loader.start()
+            gif.apply {
+                val loader = CircularProgressDrawable(context).apply {
+                    strokeWidth = context.resources.displayMetrics.density * 5f
+                    centerRadius = context.resources.displayMetrics.density * 20f
+                    setColorSchemeColors(R.color.primary)
+                    start()
+                }
 
-        holder.binding.gif.hierarchy.setPlaceholderImage(loader)
+                hierarchy.setPlaceholderImage(loader)
+                controller = Fresco.newDraweeControllerBuilder().apply {
+                    imageRequest = ImageRequest.fromUri(post.gifURL)
+                    autoPlayAnimations = true
+                }.build()
+            }
 
-        holder.binding.gif.controller = Fresco.newDraweeControllerBuilder()
-            .setImageRequest(ImageRequest.fromUri(post.gifURL))
-            .setAutoPlayAnimations(true)
-            .build()
+            root.apply {
+                setOnClickListener {
+                    itemHandler.itemOnClick(post)
+                }
 
-        holder.itemView.setOnClickListener {
-            itemHandler.itemOnClick(post)
-        }
-
-        holder.itemView.setOnCreateContextMenuListener { contextMenu, view, _ ->
-            if (contextMenu != null && view != null) {
-                contextMenu.add(0, view.id, 0, context.getString(R.string.delete))
-                    .setOnMenuItemClickListener {
-                        itemHandler.removeOnClick(post.id)
-                        true
+                setOnCreateContextMenuListener { contextMenu, view, _ ->
+                    if (contextMenu != null && view != null) {
+                        contextMenu.add(0, view.id, 0, context.getString(R.string.delete))
+                            .setOnMenuItemClickListener {
+                                itemHandler.removeOnClick(post.id)
+                                true
+                            }
                     }
+                }
             }
         }
     }

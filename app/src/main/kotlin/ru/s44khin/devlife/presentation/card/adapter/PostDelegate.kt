@@ -23,26 +23,30 @@ class PostDelegate(
         ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    override fun onBindViewHolder(item: Post, holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(post: Post, holder: ViewHolder, payloads: MutableList<Any>) {
         val context = holder.itemView.context
 
-        holder.binding.description.text = item.description
+        holder.binding.apply {
+            description.text = post.description
 
-        val loader = CircularProgressDrawable(context)
-        loader.strokeWidth = context.resources.displayMetrics.density * 5f
-        loader.centerRadius = context.resources.displayMetrics.density * 20f
-        loader.setColorSchemeColors(R.color.primary)
-        loader.start()
+            gif.apply {
+                val loader = CircularProgressDrawable(context).apply {
+                    strokeWidth = context.resources.displayMetrics.density * 5f
+                    centerRadius = context.resources.displayMetrics.density * 20f
+                    setColorSchemeColors(R.color.primary)
+                    start()
+                }
 
-        holder.binding.gif.hierarchy.setPlaceholderImage(loader)
+                hierarchy.setPlaceholderImage(loader)
+                controller = Fresco.newDraweeControllerBuilder().apply {
+                    imageRequest = ImageRequest.fromUri(post.gifURL)
+                    autoPlayAnimations = true
+                }.build()
+            }
 
-        holder.binding.gif.controller = Fresco.newDraweeControllerBuilder()
-            .setImageRequest(ImageRequest.fromUri(item.gifURL))
-            .setAutoPlayAnimations(true)
-            .build()
-
-        holder.itemView.setOnClickListener {
-            itemHandler.itemOnClick(item)
+            root.setOnClickListener {
+                itemHandler.itemOnClick(post)
+            }
         }
     }
 }
