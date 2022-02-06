@@ -1,42 +1,31 @@
 package ru.s44khin.devlife.presentation.favorites.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.request.ImageRequest
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
-import ru.s44khin.devlife.presentation.card.adapter.PostDelegate
+import ru.s44khin.devlife.databinding.ItemFavoriteBinding
 
 class FavoritesAdapter(
     var posts: List<Post> = emptyList(),
     private val itemHandler: ItemHandler
-) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
+) : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
-    class FavoritesViewHolder(
-        itemView: View
-    ) : PostDelegate.PostViewHolder(itemView) {
-        val topOverlay: FrameLayout = itemView.findViewById(R.id.top_overlay)
-        val leftOverlay: FrameLayout = itemView.findViewById(R.id.left_overlay)
-        val rightOverlay: FrameLayout = itemView.findViewById(R.id.right_overlay)
-    }
+    class ViewHolder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FavoritesViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_favorite, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ItemFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = posts[position]
         val context = holder.itemView.context
 
-        holder.leftOverlay.visibility = View.GONE
-        holder.rightOverlay.visibility = View.GONE
-        holder.topOverlay.visibility = View.GONE
-        holder.description.text = post.description
+        holder.binding.description.text = post.description
 
         val loader = CircularProgressDrawable(context)
         loader.strokeWidth = context.resources.displayMetrics.density * 5f
@@ -44,9 +33,9 @@ class FavoritesAdapter(
         loader.setColorSchemeColors(R.color.primary)
         loader.start()
 
-        holder.gif.hierarchy.setPlaceholderImage(loader)
+        holder.binding.gif.hierarchy.setPlaceholderImage(loader)
 
-        holder.gif.controller = Fresco.newDraweeControllerBuilder()
+        holder.binding.gif.controller = Fresco.newDraweeControllerBuilder()
             .setImageRequest(ImageRequest.fromUri(post.gifURL))
             .setAutoPlayAnimations(true)
             .build()
@@ -66,7 +55,7 @@ class FavoritesAdapter(
         }
     }
 
-    override fun onViewRecycled(holder: FavoritesViewHolder) {
+    override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         holder.itemView.setOnCreateContextMenuListener(null)
     }
