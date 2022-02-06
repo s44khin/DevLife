@@ -24,19 +24,11 @@ sealed class Event {
 
         data class PageLoadedNetwork(val posts: List<Post>) : Internal()
 
-        object PostSaved : Internal()
-
         data class ErrorLoadingNetwork(val error: Throwable) : Internal()
-
-        data class ErrorSavePost(val error: Throwable) : Internal()
     }
 }
 
-sealed class Effect {
-    object ErrorLoadingPage : Effect()
-
-    object ErrorSavePost : Effect()
-}
+sealed class Effect
 
 sealed class Command {
 
