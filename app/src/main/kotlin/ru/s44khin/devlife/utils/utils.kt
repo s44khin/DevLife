@@ -1,6 +1,7 @@
 package ru.s44khin.devlife.utils
 
 import android.content.Context
+import android.os.Build
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import ru.s44khin.devlife.App
@@ -21,9 +22,15 @@ internal val Fragment.mainComponent: MainComponent
     else
         error("activity in not MainActivity")
 
-internal fun getLoader(context: Context) = CircularProgressDrawable(context).apply {
-    strokeWidth = context.resources.displayMetrics.density * 5f
-    centerRadius = context.resources.displayMetrics.density * 20f
-    setColorSchemeColors(R.color.primary)
-    start()
-}
+internal val Context.loader: CircularProgressDrawable
+    get() = CircularProgressDrawable(this).apply {
+        strokeWidth = resources.displayMetrics.density * 5f
+        centerRadius = resources.displayMetrics.density * 20f
+        setColorSchemeColors(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                android.R.color.system_accent1_100
+            else
+                R.color.primary
+        )
+        start()
+    }

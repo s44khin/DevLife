@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.request.ImageRequest
-import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentPostBinding
 import ru.s44khin.devlife.presentation.post.adapter.CommentsAdapter
@@ -18,6 +16,7 @@ import ru.s44khin.devlife.presentation.post.elm.Event
 import ru.s44khin.devlife.presentation.post.elm.PostReducer
 import ru.s44khin.devlife.presentation.post.elm.State
 import ru.s44khin.devlife.utils.elmDialogFragment.ElmDialogFragment
+import ru.s44khin.devlife.utils.loader
 import ru.s44khin.devlife.utils.mainComponent
 import vivid.money.elmslie.core.ElmStoreCompat
 
@@ -74,13 +73,7 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     }
 
     private fun initPost() {
-        val loader = CircularProgressDrawable(requireContext())
-        loader.strokeWidth = requireContext().resources.displayMetrics.density * 5f
-        loader.centerRadius = requireContext().resources.displayMetrics.density * 20f
-        loader.setColorSchemeColors(R.color.primary)
-        loader.start()
-
-        binding.postGif.hierarchy.setPlaceholderImage(loader)
+        binding.postGif.hierarchy.setPlaceholderImage(requireContext().loader)
 
         binding.postGif.controller = Fresco.newDraweeControllerBuilder()
             .setImageRequest(ImageRequest.fromUri(post.gifURL))
