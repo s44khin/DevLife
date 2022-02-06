@@ -6,12 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/gif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/description"

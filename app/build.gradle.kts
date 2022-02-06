@@ -73,7 +73,8 @@ dependencies {
     implementation(Dependencies.ViewBindingPropertyDelegate.NO_REFLECTION)
 
     implementation(Dependencies.Other.SHIMMER)
-    implementation(Dependencies.Other.GLIDE)
+    implementation(Dependencies.Other.FRESCO)
+    implementation(Dependencies.Other.FRESCO_GIF)
 
     implementation(project(mapOf("path" to ":CardStackView")))
 }

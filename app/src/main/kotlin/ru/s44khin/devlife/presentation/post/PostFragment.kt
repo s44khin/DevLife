@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.imagepipeline.request.ImageRequest
+import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentPostBinding
 import ru.s44khin.devlife.presentation.post.adapter.CommentsAdapter
@@ -71,10 +74,18 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     }
 
     private fun initPost() {
-        Glide.with(requireContext())
-            .asGif()
-            .load(post.gifURL)
-            .into(binding.postGif)
+        val loader = CircularProgressDrawable(requireContext())
+        loader.strokeWidth = requireContext().resources.displayMetrics.density * 5f
+        loader.centerRadius = requireContext().resources.displayMetrics.density * 20f
+        loader.setColorSchemeColors(R.color.primary)
+        loader.start()
+
+        binding.postGif.hierarchy.setPlaceholderImage(loader)
+
+        binding.postGif.controller = Fresco.newDraweeControllerBuilder()
+            .setImageRequest(ImageRequest.fromUri(post.gifURL))
+            .setAutoPlayAnimations(true)
+            .build()
 
         binding.postDescription.text = post.description
         binding.postAuthor.text = post.author
