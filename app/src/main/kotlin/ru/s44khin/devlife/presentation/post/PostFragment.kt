@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.imagepipeline.request.ImageRequest
 import ru.s44khin.devlife.data.model.Post
 import ru.s44khin.devlife.databinding.FragmentPostBinding
 import ru.s44khin.devlife.presentation.post.adapter.CommentsAdapter
@@ -15,26 +16,33 @@ import ru.s44khin.devlife.presentation.post.elm.Event
 import ru.s44khin.devlife.presentation.post.elm.PostReducer
 import ru.s44khin.devlife.presentation.post.elm.State
 import ru.s44khin.devlife.utils.elmDialogFragment.ElmDialogFragment
-import ru.s44khin.devlife.utils.elmDialogFragment.mainComponent
+import ru.s44khin.devlife.utils.loader
+import ru.s44khin.devlife.utils.mainComponent
 import vivid.money.elmslie.core.ElmStoreCompat
 
 class PostFragment : ElmDialogFragment<Event, Effect, State>() {
 
     companion object {
         const val TAG = "POST_FRAGMENT"
-        private var postNull: Post? = null
-        private val post get() = postNull!!
+        private const val POST = "POST"
 
-        fun newInstance(post: Post): PostFragment {
-            postNull = post
-            return PostFragment()
+        fun newInstance(post: Post) = PostFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(POST, post)
+            }
         }
     }
 
     private var _binding: FragmentPostBinding? = null
     private val binding get() = _binding!!
 
-    override val initEvent = Event.Ui.LoadComments(post.id)
+    private val post: Post by lazy {
+        requireArguments().getParcelable(POST)!!
+    }
+
+    override val initEvent by lazy {
+        Event.Ui.LoadComments(post.id)
+    }
 
     override fun createStore() = ElmStoreCompat(
         initialState = State(),
@@ -47,7 +55,7 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPostBinding.inflate(inflater, container, false)
+        _binding = FragmentPostBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -65,10 +73,12 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     }
 
     private fun initPost() {
-        Glide.with(requireContext())
-            .asGif()
-            .load(post.gifURL)
-            .into(binding.postGif)
+        binding.postGif.hierarchy.setPlaceholderImage(requireContext().loader)
+
+        binding.postGif.controller = Fresco.newDraweeControllerBuilder()
+            .setImageRequest(ImageRequest.fromUri(post.gifURL))
+            .setAutoPlayAnimations(true)
+            .build()
 
         binding.postDescription.text = post.description
         binding.postAuthor.text = post.author
@@ -79,7 +89,7 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
     }
 
     private fun initButtons() = binding.apply {
-        postIcShare.setOnClickListener {
+        cardShare.setOnClickListener {
             val text = "https://developerslife.ru/${post.id}"
             val sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -88,5 +98,10 @@ class PostFragment : ElmDialogFragment<Event, Effect, State>() {
             }
             startActivity(Intent.createChooser(sendIntent, null))
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

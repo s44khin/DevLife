@@ -1,5 +1,6 @@
 package ru.s44khin.devlife.presentation.card.elm
 
+import io.reactivex.Completable
 import io.reactivex.Observable
 import ru.s44khin.devlife.data.database.DevLifeDatabase
 import ru.s44khin.devlife.data.network.DevLifeRepository
@@ -18,13 +19,9 @@ class LatestActor(
                 { error -> Event.Internal.ErrorLoadingNetwork(error) }
             )
 
-        is Command.SaveToDatabase -> Observable.fromCallable {
+        is Command.SaveToDatabase -> Completable.fromCallable {
             database.insert(command.post)
-        }
-            .mapEvents(
-                { Event.Internal.PostSaved },
-                { error -> Event.Internal.ErrorSavePost(error) }
-            )
+        }.toObservable()
     }
 }
 
@@ -41,12 +38,8 @@ class TopActor(
                 { error -> Event.Internal.ErrorLoadingNetwork(error) }
             )
 
-        is Command.SaveToDatabase -> Observable.fromCallable {
+        is Command.SaveToDatabase -> Completable.fromCallable {
             database.insert(command.post)
-        }
-            .mapEvents(
-                { Event.Internal.PostSaved },
-                { error -> Event.Internal.ErrorSavePost(error) }
-            )
+        }.toObservable()
     }
 }

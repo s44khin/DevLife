@@ -19,17 +19,8 @@ class CardReducer : DslReducer<Event, State, Effect, Command>() {
             state { copy(isLoadingNetwork = false, posts = state.posts + event.posts) }
         }
 
-        is Event.Internal.PostSaved -> {
-            state { copy() }
-        }
-
         is Event.Internal.ErrorLoadingNetwork -> {
             state { copy(isLoadingNetwork = false) }
-            effects { +Effect.ErrorLoadingPage }
-        }
-
-        is Event.Internal.ErrorSavePost -> {
-            effects { +Effect.ErrorSavePost }
         }
     }
 }

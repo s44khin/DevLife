@@ -82,12 +82,20 @@ object Dependencies {
             "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$VERSION"
     }
 
+    object ViewBindingPropertyDelegate {
+
+        private const val VERSION = "1.5.3"
+        const val NO_REFLECTION =
+            "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$VERSION"
+    }
+
     object Other {
 
         private const val SHIMMER_VERSION = "0.5.0"
-        private const val GLIDE_VERSION = "4.12.0"
+        private const val FRESCO_VERSION = "2.6.0"
 
         const val SHIMMER = "com.facebook.shimmer:shimmer:$SHIMMER_VERSION"
-        const val GLIDE = "com.github.bumptech.glide:glide:$GLIDE_VERSION"
+        const val FRESCO = "com.facebook.fresco:fresco:$FRESCO_VERSION"
+        const val FRESCO_GIF = "com.facebook.fresco:animated-gif:$FRESCO_VERSION"
     }
 }

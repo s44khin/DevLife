@@ -1,10 +1,13 @@
 package ru.s44khin.devlife.data.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "post")
 data class Post(
 
@@ -36,4 +39,4 @@ data class Post(
     @ColumnInfo(name = "previewURL")
     @field:Json(name = "previewURL")
     val previewURL: String
-)
+) : Parcelable

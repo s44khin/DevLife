@@ -15,7 +15,7 @@
             android:id="@+id/line"
             android:layout_width="60dp"
             android:layout_height="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/defaultPadding"
             app:cardBackgroundColor="?attr/colorAccent"
             app:cardCornerRadius="4dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,48 +25,44 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_gif"
+            style="@style/Card.Elevated"
             android:layout_width="0dp"
             android:layout_height="300dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:cardCornerRadius="30dp"
+            android:layout_marginStart="@dimen/defaultPadding"
+            android:layout_marginTop="@dimen/defaultPadding"
+            android:layout_marginEnd="@dimen/defaultPadding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line"
-            app:strokeWidth="0dp">
+            app:layout_constraintTop_toBottomOf="@id/line">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/post_gif"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                android:scaleType="centerCrop" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_description"
+            style="@style/Card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:cardCornerRadius="30dp"
+            android:layout_marginStart="@dimen/defaultPadding"
+            android:layout_marginTop="@dimen/defaultPadding"
+            android:layout_marginEnd="@dimen/defaultPadding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_gif"
-            app:strokeWidth="0dp">
+            app:layout_constraintTop_toBottomOf="@id/card_gif">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp">
+                android:padding="@dimen/defaultPadding">
 
                 <TextView
                     android:id="@+id/post_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Вася Пупкин" />
@@ -75,7 +71,7 @@
                     android:id="@+id/post_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="10.10.2010" />
@@ -84,61 +80,88 @@
                     android:id="@+id/post_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/post_author"
                     tools:text="Пример описание картинки очень длинное не могу ничего придумать" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_like"
+            style="@style/Card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/defaultPadding"
+            android:layout_marginTop="@dimen/defaultPadding"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/card_share"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_description">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/defaultPadding">
 
                 <ImageView
-                    android:id="@+id/post_ic_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/ic_like"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/post_description" />
+                    android:src="@drawable/ic_like" />
 
                 <TextView
                     android:id="@+id/post_like_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    app:layout_constraintBottom_toBottomOf="@id/post_ic_like"
-                    app:layout_constraintStart_toEndOf="@id/post_ic_like"
-                    app:layout_constraintTop_toTopOf="@id/post_ic_like"
-                    tools:text="10" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/defaultPadding"
+                    tools:text="1337" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/post_ic_share"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:elevation="0dp"
-                    android:foreground="?android:selectableItemBackground"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/post_ic_like"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/post_ic_like">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_share"
+            style="@style/Card.Selectable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/defaultPadding"
+            android:layout_marginEnd="@dimen/defaultPadding"
+            android:foreground="?android:selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_like"
+            app:layout_constraintTop_toBottomOf="@id/card_description">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_share" />
-                </androidx.cardview.widget.CardView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/defaultPadding">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_share" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/defaultPadding"
+                    android:text="@string/share" />
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/post_shimmer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/defaultPadding"
+            android:layout_marginTop="@dimen/defaultPadding"
+            android:layout_marginEnd="@dimen/defaultPadding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_description"
+            app:layout_constraintTop_toBottomOf="@id/card_like"
             app:shimmer_auto_start="true"
             app:shimmer_base_alpha="0">
 
@@ -162,11 +185,12 @@
             android:layout_marginTop="16dp"
             android:clipToPadding="false"
             android:minHeight="300dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
+            android:paddingStart="@dimen/defaultPadding"
+            android:paddingEnd="@dimen/defaultPadding"
+            android:paddingBottom="@dimen/defaultPadding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_description" />
+            app:layout_constraintTop_toBottomOf="@id/card_like"
+            tools:listitem="@layout/item_comment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

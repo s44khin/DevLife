@@ -2,17 +2,15 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Card.Elevated"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardCornerRadius="30dp"
-    app:strokeWidth="0dp">
+    android:layout_height="match_parent">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/gif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/description"
@@ -20,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@drawable/gradation_black"
-        android:padding="16dp"
+        android:padding="@dimen/defaultPadding"
         android:textColor="@color/white"
         tools:text="asdasd" />
 

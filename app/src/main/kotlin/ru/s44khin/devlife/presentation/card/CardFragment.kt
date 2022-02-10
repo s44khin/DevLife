@@ -1,13 +1,11 @@
 package ru.s44khin.devlife.presentation.card
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+import by.kirich1409.viewbindingdelegate.viewBinding
 import ru.s44khin.cardstackview.*
 import ru.s44khin.devlife.R
 import ru.s44khin.devlife.data.model.Post
@@ -21,7 +19,7 @@ import ru.s44khin.devlife.presentation.card.elm.Event
 import ru.s44khin.devlife.presentation.card.elm.State
 import ru.s44khin.devlife.presentation.favorites.FavoritesFragment
 import ru.s44khin.devlife.presentation.post.PostFragment
-import ru.s44khin.devlife.utils.elmDialogFragment.mainComponent
+import ru.s44khin.devlife.utils.mainComponent
 import vivid.money.elmslie.android.base.ElmFragment
 import vivid.money.elmslie.core.ElmStoreCompat
 
@@ -53,10 +51,10 @@ class FragmentTop : CardFragment() {
     )
 }
 
-abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackListener, ItemHandler {
+abstract class CardFragment : ElmFragment<Event, Effect, State>(R.layout.fragment_card),
+    CardStackListener, ItemHandler {
 
-    private var _binding: FragmentCardBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentCardBinding::bind)
     private lateinit var manager: CardStackLayoutManager
     private val adapter by lazy {
         PostAdapter(
@@ -68,15 +66,6 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     }
     private var lastPosition = 0
     override val initEvent = Event.Ui.LoadPosts
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCardBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -176,10 +165,5 @@ abstract class CardFragment : ElmFragment<Event, Effect, State>(), CardStackList
     override fun onPause() {
         super.onPause()
         lastPosition = (binding.recyclerView.layoutManager as CardStackLayoutManager).topPosition
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

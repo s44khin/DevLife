@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Card.Elevated"
     android:layout_width="match_parent"
     android:layout_height="300dp"
-    android:layout_marginBottom="16dp"
-    app:cardCornerRadius="30dp"
-    app:strokeWidth="0dp">
+    android:layout_marginBottom="@dimen/defaultPadding">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/gif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/description"
@@ -21,52 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@drawable/gradation_black"
-        android:padding="16dp"
+        android:padding="@dimen/defaultPadding"
         android:textColor="@color/white"
         tools:text="asdasd" />
-
-    <FrameLayout
-        android:id="@+id/right_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorAccent"
-        tools:visibility="invisible">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_next"
-            app:tint="?attr/colorOnSecondary" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/left_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorAccent"
-        tools:visibility="invisible">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_next"
-            app:tint="?attr/colorOnSecondary" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/top_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        tools:visibility="invisible">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_like"
-            app:tint="?attr/colorOnPrimary" />
-    </FrameLayout>
 </com.google.android.material.card.MaterialCardView>
