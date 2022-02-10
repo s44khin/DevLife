@@ -15,6 +15,6 @@ Unofficial client for developerslife.ru
 - Room
 - Dagger 2
 - Retrofit
-- Glide
+- Fresco
 
 [More screenshots](https://github.com/s44khin/DevLife/tree/0.1.1/images)
